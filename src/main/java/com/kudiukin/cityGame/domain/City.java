@@ -15,7 +15,7 @@ public class City {
     private String name;
 
     @JsonIgnore
-    private Boolean isPlayed;
+    private Boolean played;
 
     public int getId() {
         return id;
@@ -34,10 +34,10 @@ public class City {
     }
 
     public Boolean getPlayed() {
-        return isPlayed;
+        return played;
     }
 
     public void setPlayed(Boolean played) {
-        isPlayed = played;
+        this.played = played;
     }
 }

@@ -2,12 +2,10 @@ package com.kudiukin.cityGame.web;
 
 import com.kudiukin.cityGame.domain.City;
 import com.kudiukin.cityGame.service.CityService;
-import org.springframework.http.MediaType;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "/citygame")
 public class CityController {
 
     private final CityService cityService;
@@ -29,7 +27,7 @@ public class CityController {
         }
     }
 
-    @PostMapping(value = "/next")
+    @GetMapping(value = "/next")
     public String next(Model model, @RequestParam String userCityName, @RequestParam String serverCityNamePrevious) {
         userCityName = userCityName.toLowerCase();
         char serverCityLastLetter = serverCityNamePrevious.charAt(serverCityNamePrevious.length() - 1);
@@ -66,14 +64,8 @@ public class CityController {
         return "next";
     }
 
-    @GetMapping(value = "/giveUp")
-    public String giveUp(Model model) {
-        model.addAttribute("message", "Вы проиграли :(");
-        return "end";
-    }
-
-    @GetMapping(value = "/end")
+    @PostMapping(value = "/end")
     public String end() {
-        return "end";
+        return "Спасибо за игру!";
     }
 }
