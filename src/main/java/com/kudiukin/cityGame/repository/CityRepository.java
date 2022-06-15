@@ -9,10 +9,8 @@ import java.util.List;
 @Repository
 public interface CityRepository extends JpaRepository<City, Integer> {
 
-    City findByName(String name);
+    City findByName (String name);
 
-    List<City> findByNameStartsWithAndPlayedFalse(String name);
-
-
+    List<City> findByNameStartingWithAndPlayedIsFalse(String name);
 
 }
