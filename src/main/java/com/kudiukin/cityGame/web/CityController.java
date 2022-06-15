@@ -30,16 +30,14 @@ public class CityController {
 
     @GetMapping(value = "/next")
     public String next(Model model, @RequestParam String userCityName, @RequestParam String serverCityNamePrevious) {
-//        userCityName = userCityName.toLowerCase();
+        userCityName = userCityName.toLowerCase();
         char serverCityLastLetter = serverCityNamePrevious.charAt(serverCityNamePrevious.length() - 1);
-
         if (cityService.checkFirstLetter(userCityName, serverCityLastLetter)) {
             model.addAttribute("error", "Название города должно начинаться на букву "
                     + serverCityLastLetter + ". Попробуйте снова.");
             model.addAttribute("serverCityName", cityService.readableView(serverCityNamePrevious));
         } else {
             City userCity = cityService.searchCityByName(userCityName);
-
             if (userCity == null) {
                 model.addAttribute("error", "Город " + cityService.readableView(userCityName) + " неизвестен. Пожалуйста, назовите другой город.");
                 model.addAttribute("serverCityName", serverCityNamePrevious);
@@ -49,10 +47,7 @@ public class CityController {
                             + cityService.readableView(userCity.getName()) + " уже был. Попробуйте другой.");
                     model.addAttribute("serverCityName", cityService.readableView(serverCityNamePrevious));
                 } else {
-                    cityService.markCityPlayed(userCity);
-
-                    char lastLetterUser = userCityName.charAt(userCityName.length()-1);
-                    City serverCity = cityService.getNextCity(lastLetterUser);
+                    City serverCity = cityService.getNextCity(userCityName);
                     if (serverCity == null) {
                         model.addAttribute("message", "Не могу подобрать город. Вы победили!");
                         return "end";

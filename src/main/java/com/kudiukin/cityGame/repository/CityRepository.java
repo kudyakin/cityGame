@@ -11,6 +11,6 @@ public interface CityRepository extends JpaRepository<City, Integer> {
 
     City findByName (String name);
 
-    List<City> findByNameStartingWithAndPlayedIsFalse(String name);
+    List<City> findAllByNameStartsWithAndPlayedIsFalse (char name);
 
 }

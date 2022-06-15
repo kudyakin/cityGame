@@ -39,24 +39,16 @@ public class CityService {
 
     public City getFirstCity(){
         markCityAsNotPlayed();
-
         List<City> allCities = cityRepository.findAll();
-
         City firstCity = allCities.get(random.nextInt(allCities.size()));
             markCityPlayed(firstCity);
-
         return firstCity;
     }
 
-    public City getNextCity(char lastLetter){
-        List<City> Cities = cityRepository.findByNameStartingWithAndPlayedIsFalse(String.valueOf(lastLetter));
-
-        City nextCity = null;
-        if (!Cities.isEmpty()) {
-            nextCity = Cities.get(random.nextInt(Cities.size()));
-            markCityPlayed(nextCity);
-        }
-
+    public City getNextCity(String userCityName){
+        List<City> Cities = cityRepository.findAllByNameStartsWithAndPlayedIsFalse (userCityName.charAt(0));
+        City nextCity = Cities.get(random.nextInt(Cities.size()));
+        markCityPlayed(nextCity);
         return nextCity;
     }
 
