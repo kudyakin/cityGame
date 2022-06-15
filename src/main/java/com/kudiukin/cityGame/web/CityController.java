@@ -47,6 +47,7 @@ public class CityController {
                             + cityService.readableView(userCity.getName()) + " уже был. Попробуйте другой.");
                     model.addAttribute("serverCityName", cityService.readableView(serverCityNamePrevious));
                 } else {
+                    cityService.markCityPlayed(userCity);
                     City serverCity = cityService.getNextCity(userCityName);
                     if (serverCity == null) {
                         model.addAttribute("message", "Не могу подобрать город. Вы победили!");
